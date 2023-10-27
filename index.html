@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel="icon" href="/qr-code.png">
+    <title>QR generator</title>
+</head>
+<!--***********CSS Starts******** -->
+<style>*{
+    margin: 0;
+    padding: 0;
+    font-family:  'Montserrat', sans-serif;
+    box-sizing: border-box;
+
+}
+body{
+    background-color: rgb(33, 33, 33);
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.container{
+width: 400px;
+padding: 25px 35px;
+border-radius: 10px;
+background-color: aliceblue;
+}
+.container h3{
+    color: rgb(255, 68, 96);
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+.container input{
+    width: 100%;
+    height: 50px;
+    border: 3px solid rgb(0, 0, 0);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+.container button{
+    width: 100%;
+    height: 50px;
+    background: rgb(41, 76, 255);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+
+}
+button:hover{
+    color: rgb(255, 68, 96);
+}
+#imgBox{
+    width: 200px;
+    border-radius: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.1s;
+}
+#imgBox img{
+    width: 100%;
+    padding:  10px;
+    margin-bottom: 10px;
+}
+#imgBox.show{
+    max-height: 300px;
+    margin: 10px auto;
+    border: 1px solid #d1d1d1;
+}
+.error{
+    animation: shake 0.1s linear 10;
+
+}
+@keyframes shake {
+    0%{
+        transform: translateX(0);
+    }
+    25%{
+        transform: translateX(-2px);
+    }
+    50%{
+        transform: translateX(0);
+    }
+    75%{
+        transform: translateX(2px);
+    }
+    100%{
+        transform: translateX(0);
+    }
+    
+}</style>
+<!--***********CSS ENDS******** -->
+
+<!--***********HTML Starts******** -->
+<body>
+    <div class="container">
+        <h3>Enter your text or URL</h3>
+        <input type="text" id="inputText" placeholder="Text or URL">
+        <div id="imgBox"> <img src="" id="qrImage"></div>
+        <button onclick="generateqr()">Generate QR Code</button>
+    </div>
+    <!--***********HTML ENDS******** -->
+    <!--***********JS Starts******** -->
+    <script>
+         let img=document.getElementById("imgBox");
+    let qrImage=document.getElementById("qrImage");
+    let qrtext=document.getElementById("inputText");
+    function generateqr(){
+        if(qrtext.value.length>0){
+        qrImage.src=" https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+ qrtext.value
+    imgBox.classList.add("show");
+        }
+        else{
+            qrtext.classList.add("error")
+            setTimeout(()=>{
+                qrtext.classList.remove("error");
+
+            },1000);
+
+        }
+    }
+    </script>
+    <!--***********JS ENDS******** -->
+</body>
+</html>
